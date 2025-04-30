@@ -295,7 +295,7 @@ export default function Home() {
 
   if (!gameStarted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#90DCFE] text-white">
+      <div className="min-h-screen flex items-center justify-center bg-black text-white">
         <div className="text-center bg-black/20 p-8 rounded-lg backdrop-blur-sm">
           <div className="mb-8">
             <Image
