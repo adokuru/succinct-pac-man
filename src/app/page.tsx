@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
@@ -57,6 +58,8 @@ export default function Home() {
   ]);
   const [direction, setDirection] = useState('right');
   const [maze, setMaze] = useState(initialMaze);
+  const [mouthOpen, setMouthOpen] = useState(true);
+  const [animationFrame, setAnimationFrame] = useState(0);
 
   useEffect(() => {
     const savedName = localStorage.getItem('pacmanPlayerName');
@@ -280,6 +283,17 @@ export default function Home() {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [gameOver]);
 
+  useEffect(() => {
+    if (!gameStarted || gameOver) return;
+
+    const animationInterval = setInterval(() => {
+      setAnimationFrame(prev => (prev + 1) % 4);
+      setMouthOpen(prev => !prev);
+    }, 100);
+
+    return () => clearInterval(animationInterval);
+  }, [gameStarted, gameOver]);
+
   const resetGame = () => {
     setGameOver(false);
     setScore(0);
@@ -396,14 +410,22 @@ export default function Home() {
             top: pacmanPosition.y * CELL_SIZE + 16,
             width: CELL_SIZE,
             height: CELL_SIZE,
-            backgroundColor: '#FE11C5',
-            borderRadius: '50%',
-            transform: `rotate(${direction === 'right' ? 0 :
-              direction === 'down' ? 90 :
-                direction === 'left' ? 180 : 270
-              }deg)`,
           }}
-        />
+        >
+          <div
+            className="absolute top-0 left-0 w-full h-full"
+            style={{
+              backgroundColor: '#FE11C5',
+              borderRadius: '50%',
+              transform: `rotate(${direction === 'right' ? 0 :
+                direction === 'down' ? 90 :
+                  direction === 'left' ? 180 : 270
+                }deg)`,
+              clipPath: mouthOpen ? 'polygon(50% 50%, 100% 0%, 100% 100%)' : 'circle(50% at 50% 50%)',
+              transition: 'clip-path 0.1s ease-in-out',
+            }}
+          />
+        </div>
         {ghosts.map((ghost, index) => (
           <div
             key={index}
