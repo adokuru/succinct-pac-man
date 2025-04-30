@@ -290,7 +290,7 @@ export default function Home() {
     const animationInterval = setInterval(() => {
       setAnimationFrame(prev => (prev + 1) % 4);
       setMouthOpen(prev => !prev);
-    }, 100);
+    }, 150);
 
     return () => clearInterval(animationInterval);
   }, [gameStarted, gameOver]);
@@ -449,6 +449,8 @@ export default function Home() {
             top: pacmanPosition.y * CELL_SIZE + 16,
             width: CELL_SIZE,
             height: CELL_SIZE,
+            backgroundColor: '#FFD700',
+            borderRadius: '50%',
           }}
         >
           <div
@@ -460,8 +462,10 @@ export default function Home() {
                 direction === 'down' ? 90 :
                   direction === 'left' ? 180 : 270
                 }deg)`,
-              clipPath: mouthOpen ? 'polygon(50% 50%, 100% 0%, 100% 100%)' : 'circle(50% at 50% 50%)',
-              transition: 'clip-path 0.1s ease-in-out',
+              clipPath: mouthOpen
+                ? 'polygon(50% 50%, 100% 0%, 100% 100%)'
+                : 'polygon(50% 50%, 100% 25%, 100% 75%)',
+              transition: 'clip-path 0.15s ease-in-out',
             }}
           />
         </div>
