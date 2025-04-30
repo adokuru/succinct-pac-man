@@ -60,6 +60,7 @@ export default function Home() {
   const [maze, setMaze] = useState(initialMaze);
   const [mouthOpen, setMouthOpen] = useState(true);
   const [animationFrame, setAnimationFrame] = useState(0);
+  const [touchStart, setTouchStart] = useState<Position | null>(null);
 
   useEffect(() => {
     const savedName = localStorage.getItem('pacmanPlayerName');
@@ -307,6 +308,40 @@ export default function Home() {
     setMaze(initialMaze);
   };
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    const touch = e.touches[0];
+    setTouchStart({ x: touch.clientX, y: touch.clientY });
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStart) return;
+
+    const touch = e.changedTouches[0];
+    const touchEnd = { x: touch.clientX, y: touch.clientY };
+
+    const dx = touchEnd.x - touchStart.x;
+    const dy = touchEnd.y - touchStart.y;
+
+    // Determine the dominant direction
+    if (Math.abs(dx) > Math.abs(dy)) {
+      // Horizontal swipe
+      if (dx > 0) {
+        setDirection('right');
+      } else {
+        setDirection('left');
+      }
+    } else {
+      // Vertical swipe
+      if (dy > 0) {
+        setDirection('down');
+      } else {
+        setDirection('up');
+      }
+    }
+
+    setTouchStart(null);
+  };
+
   if (!gameStarted) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black text-white">
@@ -343,7 +378,11 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-black text-white">
+    <div
+      className="min-h-screen flex flex-col items-center justify-center bg-black text-white"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       <div className="mb-4 text-center bg-black/20 p-4 rounded-lg backdrop-blur-sm">
         <div className="mb-4">
           <Image
@@ -440,6 +479,9 @@ export default function Home() {
             }}
           />
         ))}
+      </div>
+      <div className="mt-4 text-center">
+        <p className="text-sm text-gray-400">Swipe to move Pacman</p>
       </div>
       <footer className="absolute bottom-4 text-center">
         <a
