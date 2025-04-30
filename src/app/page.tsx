@@ -296,7 +296,7 @@ export default function Home() {
   if (!gameStarted) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black text-white">
-        <div className="text-center bg-black/20 p-8 rounded-lg backdrop-blur-sm">
+        <div className="text-center bg-white/70 p-8 rounded-lg backdrop-blur-sm">
           <div className="mb-8">
             <Image
               src="https://testnet.succinct.xyz/images/succinct-icon-pink.svg"
@@ -313,7 +313,7 @@ export default function Home() {
               value={playerName}
               onChange={(e) => setPlayerName(e.target.value)}
               placeholder="Enter your name"
-              className="px-4 py-2 rounded text-[#FE11C5] w-full"
+              className="px-4 py-2 rounded text-black w-full border-2 border-[#FE11C5]"
               required
             />
             <button
