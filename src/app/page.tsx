@@ -313,7 +313,7 @@ export default function Home() {
               value={playerName}
               onChange={(e) => setPlayerName(e.target.value)}
               placeholder="Enter your name"
-              className="px-4 py-2 rounded text-black w-full"
+              className="px-4 py-2 rounded text-[#FE11C5] w-full"
               required
             />
             <button
