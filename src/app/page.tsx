@@ -379,9 +379,13 @@ export default function Home() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center bg-black text-white"
+      className="min-h-screen flex flex-col items-center justify-center bg-black text-white overflow-hidden fixed inset-0"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
+      style={{
+        touchAction: 'none',
+        WebkitOverflowScrolling: 'touch',
+      }}
     >
       <div className="mb-4 text-center bg-black/20 p-4 rounded-lg backdrop-blur-sm">
         <div className="mb-4">
@@ -413,6 +417,7 @@ export default function Home() {
         style={{
           width: GRID_SIZE * CELL_SIZE + 32,
           height: GRID_SIZE * CELL_SIZE + 32,
+          touchAction: 'none',
         }}
       >
         {maze.map((row, y) =>
@@ -487,7 +492,7 @@ export default function Home() {
       <div className="mt-4 text-center">
         <p className="text-sm text-gray-400">Swipe to move Pacman</p>
       </div>
-      <footer className="absolute bottom-4 text-center">
+      <footer className=" text-center">
         <a
           href="https://twitter.com/nftheadies"
           target="_blank"
