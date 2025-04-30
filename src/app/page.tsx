@@ -400,6 +400,17 @@ export default function Home() {
         <h1 className="text-2xl font-bold text-[#FE11C5]">Succinct Pac-Man</h1>
         <p className="text-lg">Player: {playerName}</p>
         <p className="text-lg">Score: {score}</p>
+        <p className="text-lg"> <a
+          href="https://twitter.com/nftheadies"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 text-[#FE11C5] hover:text-[#d60fa8] transition-colors"
+        >
+          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+          </svg>
+          <span>@NFTHeadies</span>
+        </a></p>
         {gameOver && (
           <div className="mt-4 text-center">
             <p className="text-[#FE11C5] text-xl font-bold mb-4">Game Over!</p>
